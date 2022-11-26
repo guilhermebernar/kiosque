@@ -1,4 +1,5 @@
 from .original_menu import original_products
+from collections import Counter
 
 def get_product_by_id(id: int) -> dict:
 
@@ -17,16 +18,25 @@ def get_products_by_type(search_type: str) -> list:
     return []
 
 def menu_report() -> str:
-    # Você deverá montar um report sobre algumas características do menu de produtos:
-        # Product Count: Contagem do total de produtos do menu.
-    def get_product_count():
-        ...
-        # Average Price: Média dos preços de todos os produtos do menu, arredondada para 2 casas decimais no máximo.
-    def get_average_price():
-        ...
-        # Most Common Type: O tipo de produto mais comum, ou seja, o tipo que contém maior quantidade de produtos no menu.
-    def get_most_common_type():
-        ...
+
+    def get_product_count() -> int:
+         return len(
+            [
+                product for product in original_products 
+                if isinstance(product, dict)
+            ]
+        )
+
+    def get_average_price() -> int:
+        sum_products = get_product_count()
+        sum_prices = sum(d['price'] for d in original_products)
+        
+        return round(sum_prices/sum_products, 2)
+
+    def get_most_common_type(): 
+        counter = Counter(original_products.values())
+        
+        return counter.most_common[0]
 
     report = {
         "Product Count":get_product_count,
@@ -35,5 +45,24 @@ def menu_report() -> str:
     }
     
     return str(report)
-    # O retorno deve ser uma string formatada exatamente como no exemplo abaixo, com o devido dinamismo de cada característica:
-        # "Products Count: <contagem_de_produtos> - Average Price: $<preco_medio> - Most Common Type: <tipo_mais_comum>"
+
+def add_product(menu, product: dict) -> str:
+    menu = original_products
+
+    def id_generation () -> int:
+        for product in menu:  
+            _id = product.values()
+            
+            if _id > 0:
+                return max(_id)+1
+            
+            return 1
+    
+    return menu.append({
+        "_id":id_generation,
+        "description": product.description,
+        "price": product.price,
+        "rating": product.rating,
+        "title": product.title,
+        "type": product.type,
+    })
