@@ -46,9 +46,7 @@ def menu_report() -> str:
     
     return str(report)
 
-def add_product(menu, product: dict) -> str:
-    menu = original_products
-
+def add_product(menu: list, product: dict) -> str:
     def id_generation () -> int:
         for product in menu:  
             _id = product.values()
