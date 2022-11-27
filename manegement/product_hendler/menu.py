@@ -1,4 +1,7 @@
-from .original_menu import original_products
+import sys
+sys.path.append("..")
+from tests.data import original_products
+
 from collections import Counter
 
 def get_product_by_id(id: int) -> dict:
@@ -58,9 +61,9 @@ def add_product(menu: list, product: dict) -> str:
     
     return menu.append({
         "_id":id_generation,
-        "description": product.description,
-        "price": product.price,
-        "rating": product.rating,
-        "title": product.title,
-        "type": product.type,
+        "description": product.value('description'),
+        "price": product.value('price'),
+        "rating": product.value('rating'),
+        "title": product.value('title'),
+        "type": product.value('type'),
     })
