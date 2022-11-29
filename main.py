@@ -1,6 +1,6 @@
 from menu import products
-from management.product_handler import product_handler
-from management.tab_handler import tab_handler
+from management import product_handler
+from management import tab_handler
 
 if __name__ == "__main__":
 
